@@ -2,23 +2,36 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const generateHTML = require('./')
 
+var allEmplyees = [];
+
 const questions = [
   {
-    type: 'input',
-    name: '',
-    message: '',
+    type: "input",
+    name: "name",
+    message: "Please enter the employee's name:",
   },
   {
-    type: 'input',
-    name: '',
-    message: '',
+    type: "input",
+    name: "id",
+    message: "Please enter the employee's id number:",
   },
+  {
+    type: "input",
+    name: "email",
+    message: "Please enter the employee's email:",
+  },
+  {
+    type: "input",
+    name: "role",
+    message: "Please enter the employee's role:",
+    choices: ['Manager', 'Engineer', 'Intern']
+  },
+
 ];
 
 function writeToFile(fileName, data) {
   fs.writeFileSync(fileName, data);
 }
-
 function init() { 
     inquirer.prompt(questions)
     .then((answers) => {
@@ -27,7 +40,6 @@ function init() {
     })
 
 }
-
 init();
 
 // how to add more employees
