@@ -2,6 +2,8 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const generateHTML = require('./src/generateHTML')
 const Manager = require ('./lib/Manager')
+const Engineer = require ('./lib/Engineer')
+const Intern = require ('./lib/Intern')
 
 var allEmplyees = [];
 
@@ -24,7 +26,7 @@ const questions = [
   {
     type: "list",
     name: "role",
-    message: "Please enter the employee's role:",
+    message: "Please choose the employee's role:",
     choices: ['Manager', 'Engineer', 'Intern']
   },
 
@@ -57,8 +59,8 @@ function init() {
           message: "Please enter the Engineer's GitHub user name:",
         })
         .then((engineerAnswers) => {
-          let newManager = new Engineer(answers.name, answers.id, answers.email, managerAnswers.officeNumber) 
-          allEmplyees.push(newManager);
+          let newEngineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.gitHub) 
+          allEmplyees.push(newEngineer);
           console.log(allEmplyees);
         })
       }
@@ -69,8 +71,8 @@ function init() {
           message: "Please enter the name of the school for the Intern:",
         })
         .then((internAnswers) => {
-          let newManager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber) 
-          allEmplyees.push(newManager);
+          let newIntern = new Intern(answers.name, answers.id, answers.email, internAnswers.school) 
+          allEmplyees.push(newIntern);
           console.log(allEmplyees);
         })
       }
@@ -101,9 +103,6 @@ function addAnother() {
 }
 init();
 
-// how to add more employees
 // where to store answers. We can store them in our Constructor
-// create an array to store emplyees
 // create an inquire prompt to ask questions based on user's input
-// if/else or switch 
 // leave HTML to the very end. refer to 9 activity 28
