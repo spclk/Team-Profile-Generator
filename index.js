@@ -1,11 +1,13 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateHTML = require('./src/generateHTML')
+const employeeHTML = require('./src/employeeHTML');
+const Employee = require('./lib/Employee');
 const Manager = require ('./lib/Manager')
 const Engineer = require ('./lib/Engineer')
 const Intern = require ('./lib/Intern')
 
-var allEmplyees = [];
+let allEmployees = [];
 
 const questions = [
   {
@@ -29,12 +31,10 @@ const questions = [
     message: "Please choose the employee's role:",
     choices: ['Manager', 'Engineer', 'Intern']
   },
+  
 
 ];
 
-function writeToFile(fileName, data) {
-  fs.writeFileSync(fileName, data);
-}
 function init() { 
     inquirer.prompt(questions)
     .then((answers) => {
@@ -47,9 +47,9 @@ function init() {
         })
         .then((managerAnswers) => {
           let newManager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber) 
-          allEmplyees.push(newManager);
-          console.log(allEmplyees);
-          addAnother()
+          allEmployees.push(newManager);
+          console.log(allEmployees);
+          addEmloyees()
         })
       }
       else if (answers.role === "Engineer"){
@@ -60,8 +60,9 @@ function init() {
         })
         .then((engineerAnswers) => {
           let newEngineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.gitHub) 
-          allEmplyees.push(newEngineer);
-          console.log(allEmplyees);
+          allEmployees.push(newEngineer);
+          console.log(allEmployees);
+          addEmloyees()
         })
       }
       else if (answers.role === "Intern"){
@@ -72,8 +73,9 @@ function init() {
         })
         .then((internAnswers) => {
           let newIntern = new Intern(answers.name, answers.id, answers.email, internAnswers.school) 
-          allEmplyees.push(newIntern);
-          console.log(allEmplyees);
+          allEmployees.push(newIntern);
+          console.log(allEmployees);
+          addEmloyees()
         })
       }
       
@@ -82,27 +84,39 @@ function init() {
 
 }
 
-
-function addAnother() {
+function addEmloyees() {
   inquirer.prompt({
     type: "confirm",
     name: "newEmployee",
     message: "Would you like to add another employee?",
   })
   .then((anotherEmployee) => {
-  if (anotherEmployee.newEmployee){
-    init();
-  }
-  else {
-    //var response = generateHTML(answers);
-  //writeToFile("index.html", response)
-  }
-}) 
-
-
-}
+    if (anotherEmployee.newEmployee){
+      init();
+    }
+    else {
+      let employeeCards = "";
+        for (var i = 0; i < allEmployees.length; i++) {
+          const employeeInfo = employeeHTML(allEmployees[i]);
+          employeeCards += employeeInfo;
+          console.log(employeeInfo)
+        };
+        fs.writeFile(`${__dirname}/dist/team.html`, generateHTML(employeeCards),(err) => {
+          if (err) {
+              throw err;
+          };
+        });
+    };
+  })
+  .catch((err) => console.error(err)); 
+};
 init();
 
+ //var response = generateHTML(answers);
+  //writeToFile("index.html", response)
+// function writeToFile(fileName, data) {
+//   fs.writeFileSync(fileName, data);
+// }
 // where to store answers. We can store them in our Constructor
 // create an inquire prompt to ask questions based on user's input
 // leave HTML to the very end. refer to 9 activity 28
