@@ -111,12 +111,3 @@ function addEmloyees() {
   .catch((err) => console.error(err)); 
 };
 init();
-
- //var response = generateHTML(answers);
-  //writeToFile("index.html", response)
-// function writeToFile(fileName, data) {
-//   fs.writeFileSync(fileName, data);
-// }
-// where to store answers. We can store them in our Constructor
-// create an inquire prompt to ask questions based on user's input
-// leave HTML to the very end. refer to 9 activity 28
