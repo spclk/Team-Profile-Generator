@@ -36,7 +36,7 @@ const questions = [
 function init() { 
     inquirer.prompt(questions)
     .then((answers) => {
-      console.log(answers)
+      //console.log(answers)
       if (answers.role === "Manager"){
         inquirer.prompt({
           type: "input",
@@ -44,9 +44,8 @@ function init() {
           message: "Please enter the manager's office number:",
         })
         .then((managerAnswers) => {
-          let newManager = new Manager(answers.name, answers.id, answers.email, answers.role, managerAnswers.officeNumber) 
+          let newManager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber) 
           allEmployees.push(newManager);
-          console.log(allEmployees);
           addEmloyees()
         })
       }
@@ -57,9 +56,8 @@ function init() {
           message: "Please enter the Engineer's GitHub user name:",
         })
         .then((engineerAnswers) => {
-          let newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.role, engineerAnswers.gitHub) 
+          let newEngineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.gitHub) 
           allEmployees.push(newEngineer);
-          console.log(allEmployees);
           addEmloyees()
         })
       }
@@ -70,14 +68,13 @@ function init() {
           message: "Please enter the name of the school for the Intern:",
         })
         .then((internAnswers) => {
-          let newIntern = new Intern(answers.name, answers.id, answers.email, answers.role, internAnswers.school) 
+          let newIntern = new Intern(answers.name, answers.id, answers.email, internAnswers.school) 
           allEmployees.push(newIntern);
-          console.log(allEmployees);
           addEmloyees()
-        })
-      }
-    })
-}
+        });
+      };
+    });
+};
 
 function addEmloyees() {
   inquirer.prompt({
@@ -92,15 +89,14 @@ function addEmloyees() {
     else {
       let employeeData = '';  
         for (var i = 0; i < allEmployees.length; i++) {
+          //console.log(allEmployees[i])
           const employeeCards = cardsHTML(allEmployees[i]);
           employeeData += employeeCards;
         };
-        fs.writeFile('team.html', generateHTML(employeeData),(err) => {
-          console.log(employeeData)
+        fs.writeFile(`${__dirname}/dist/team.html`, generateHTML(employeeData),(err) => {
           err ? console.log(err) : console.log('Successfully created team.html!')
         });
     };
-  })
-  .catch((err) => console.error(err)); 
+  });
 };
 init();
