@@ -13,7 +13,7 @@ const cardsHTML = (answers) => {
                         <li class="list-group-item">ID: ${answers.id}</li>
                         <li class="list-group-item">Email: <a
                                 href="mailto:${answers.email}">${answers.email}</a></li>
-                        <li class="list-group-item">Office Number: 1</li>
+                        <li class="list-group-item">Office Number: ${answers.officeNumber}</li>
                     </ul>
                 </div>
             </div>
@@ -36,7 +36,7 @@ const cardsHTML = (answers) => {
                         <li class="list-group-item">ID: ${answers.id}</li>
                         <li class="list-group-item">Email: <a
                                 href="mailto:${answers.email}">${answers.email}</a></li>
-                        <li class="list-group-item">Github: <a href="https://github.com/janedoe" target="_blank">janedoe</a></li>
+                        <li class="list-group-item">Github: <a href="https://github.com/${answers.gitHub}" target="_blank">${answers.gitHub}</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +58,7 @@ const cardsHTML = (answers) => {
                         <li class="list-group-item">ID: ${answers.id}</li>
                         <li class="list-group-item">Email: <a
                                 href="mailto:${answers.email}">${answers.email}</a></li>
-                        <li class="list-group-item">School: Stanford</li>
+                        <li class="list-group-item">School: ${answers.school}</li>
                     </ul>
                 </div>
             </div>

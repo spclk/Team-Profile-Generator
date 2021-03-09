@@ -44,7 +44,9 @@ function init() {
           message: "Please enter the manager's office number:",
         })
         .then((managerAnswers) => {
+          //console.log(managerAnswers)
           let newManager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber) 
+          //console.log(newManager)
           allEmployees.push(newManager);
           addEmloyees()
         })
