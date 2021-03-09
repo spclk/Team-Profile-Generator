@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateHTML = require('./src/generateHTML')
-const employeeHTML = require('./src/employeeHTML');
+const cardsHTML = require('./src/cardsHTML');
 const Employee = require('./lib/Employee');
 const Manager = require ('./lib/Manager')
 const Engineer = require ('./lib/Engineer')
@@ -31,8 +31,6 @@ const questions = [
     message: "Please choose the employee's role:",
     choices: ['Manager', 'Engineer', 'Intern']
   },
-  
-
 ];
 
 function init() { 
@@ -46,7 +44,7 @@ function init() {
           message: "Please enter the manager's office number:",
         })
         .then((managerAnswers) => {
-          let newManager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber) 
+          let newManager = new Manager(answers.name, answers.id, answers.email, answers.role, managerAnswers.officeNumber) 
           allEmployees.push(newManager);
           console.log(allEmployees);
           addEmloyees()
@@ -59,7 +57,7 @@ function init() {
           message: "Please enter the Engineer's GitHub user name:",
         })
         .then((engineerAnswers) => {
-          let newEngineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.gitHub) 
+          let newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.role, engineerAnswers.gitHub) 
           allEmployees.push(newEngineer);
           console.log(allEmployees);
           addEmloyees()
@@ -72,16 +70,13 @@ function init() {
           message: "Please enter the name of the school for the Intern:",
         })
         .then((internAnswers) => {
-          let newIntern = new Intern(answers.name, answers.id, answers.email, internAnswers.school) 
+          let newIntern = new Intern(answers.name, answers.id, answers.email, answers.role, internAnswers.school) 
           allEmployees.push(newIntern);
           console.log(allEmployees);
           addEmloyees()
         })
       }
-      
-      
     })
-
 }
 
 function addEmloyees() {
@@ -95,13 +90,13 @@ function addEmloyees() {
       init();
     }
     else {
-      let employeeCards = "";
+      let employeeData = "";  // new array to hold data?
         for (var i = 0; i < allEmployees.length; i++) {
-          const employeeInfo = employeeHTML(allEmployees[i]);
-          employeeCards += employeeInfo;
-          console.log(employeeInfo)
+          const employeeCards = cardsHTML(allEmployees[i]);
+          employeeData += employeeCards;
         };
-        fs.writeFile(`${__dirname}/dist/team.html`, generateHTML(employeeCards),(err) => {
+        fs.writeFile(`${__dirname}/dist/team.html`, generateHTML(employeeData),(err) => {
+          console.log(employeeData)
           if (err) {
               throw err;
           };
