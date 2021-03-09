@@ -90,16 +90,14 @@ function addEmloyees() {
       init();
     }
     else {
-      let employeeData = "";  // new array to hold data?
+      let employeeData = '';  
         for (var i = 0; i < allEmployees.length; i++) {
           const employeeCards = cardsHTML(allEmployees[i]);
           employeeData += employeeCards;
         };
-        fs.writeFile(`${__dirname}/dist/team.html`, generateHTML(employeeData),(err) => {
+        fs.writeFile('team.html', generateHTML(employeeData),(err) => {
           console.log(employeeData)
-          if (err) {
-              throw err;
-          };
+          err ? console.log(err) : console.log('Successfully created team.html!')
         });
     };
   })
