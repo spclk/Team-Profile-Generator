@@ -1,4 +1,6 @@
 # Team Profile Generator
+![Issues](https://img.shields.io/github/issues/spclk/Note-Taker)
+![Contributors](https://img.shields.io/badge/Contributors-1-green)
   ## Description
   This is a command-line application that takes in information about employees on a software engineering team, then generates an HTML webpage that displays summaries for each person.
   This project was also created, in part, to demonstate my ability to work with Node.js, npm, JEST testing, and JavaScript.   
@@ -14,7 +16,7 @@
   ## Tests
   JEST tests for all code passed successfully.
   ## Questions? 
-  Feel free to contact me at konstantin1020@gmail.com
+  Contact me through: https://github.com/spclk
 
   Here's a link to my tutorial video:
   [Video](https://drive.google.com/file/d/1PqxUW185r3zA9wLl6Ue2tT5UCuLf38kA/view)
